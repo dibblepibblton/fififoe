@@ -1,0 +1,36 @@
+import math
+import time
+
+def generate_spiral():
+    width = 80  # Width of the console
+    height = 24  # Height of the console
+
+    a = 0.0
+    b = 0.1
+    while True:
+        # Clear the console
+        print("\033[H\033[J", end='')
+
+        # Generate the spiral pattern
+        for y in range(height):
+            for x in range(width):
+                dx = x - width / 2
+                dy = y - height / 2
+                angle = math.atan2(dy, dx)
+                distance = math.sqrt(dx * dx + dy * dy)
+                value = math.cos(distance / 5 - a) + math.sin(distance / 5 - b)
+                char_index = int(value * 8) % 8
+                chars = ["@", "#", "$", "%", "&", "*", "+", "-"]
+                char = chars[char_index]
+                print(char, end='')
+            print()
+        
+        # Adjust the parameters for the next frame
+        a += 0.04
+        b += 0.03
+
+        # Pause for a short duration to control the animation speed
+        time.sleep(0.05)
+
+if __name__ == "__main__":
+    generate_spiral()
